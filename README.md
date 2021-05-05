@@ -19,7 +19,6 @@
 
 # 参与人员👨‍👦‍👦
 <p align="center">
-<strong font-size="4">👨‍💻 LoveMiku233 </strong>
 <img alt="头像" width="150" height="150" src="严/tx.png" /><br/>
  👨‍💻 LoveMiku233 
 - 🎮 CSGO / GTA5 
@@ -27,9 +26,10 @@
 - ⚡ C++ / C  
 </p>
 
+<p align="center">
+<img  src="薛/tx.png" width="150" height="150" alt="头像" /><br/>
+</p>
 
-<img align="center" src="薛/tx.png" width="150" height="150" alt="头像" /><br/>
-
-
-
-<img align="center" src="马/tx.png" width="150" height="150" alt="头像" /><br/>
+<p align="center">
+<img src="马/tx.png" width="150" height="150" alt="头像" /><br/>
+</p>
