@@ -17,5 +17,5 @@
 ![qd2](img/qd2.png)
 - 打开里面驱动安装程序
 ![qd3](img/qd3.png)
--安装即可
+- 安装即可
 ![qd4](img/qd4.png)
