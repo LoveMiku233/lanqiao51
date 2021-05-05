@@ -19,8 +19,11 @@
 
 # 参与人员
 
-<img align="left" src="严/tx.png" width="150" height="150" alt="头像"/><br/>
-<img align="right" src="https://github-readme-stats.vercel.app/api?username=LoveMiku233&show_icons=true">
+<img align="left" src="严/tx.png" width="193" height="193" alt="头像"/><br/>
+<img align="right" src="https://github-readme-stats.vercel.app/api?username=LoveMiku233&show_icons=true"><br/>
+
 <img src="薛/tx.png" width="150" height="150" alt="头像"/><br/>
+
+
 
 <img src="马/tx.png" width="150" height="150" alt="头像"/><br/>
