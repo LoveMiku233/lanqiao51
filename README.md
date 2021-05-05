@@ -17,10 +17,13 @@
 - [ ] 客观题
 
 
-# 参与人员
+# 参与人员👨‍👦‍👦
 
-<img align="left" src="严/tx.png" width="193" height="193" alt="头像"/>
-<img align="right" src="https://github-readme-stats.vercel.app/api?username=LoveMiku233&show_icons=true"><br/>
+<img src="严/tx.png" width="150" height="150" alt="头像"/><br/>
+### 👨‍💻LoveMiku233
+- 🎮 CSGO/GTA5
+- 💻 Lenovo Y7000
+- ⚡ C++ / C
 
 <img src="薛/tx.png" width="150" height="150" alt="头像"/><br/>
 
