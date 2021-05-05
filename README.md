@@ -19,12 +19,11 @@
 
 # 参与人员👨‍👦‍👦
 
-<img src="严/tx.png" width="150" height="150" alt="头像"/>
+<img src="严/tx.png" width="150" height="150" alt="头像"/><br/>
 ### 👨‍💻LoveMiku233
 - 🎮 CSGO/GTA5
 - 💻 Lenovo Y7000
 - ⚡ C++ / C
-<br/>
 <img src="薛/tx.png" width="150" height="150" alt="头像"/><br/>
 
 
