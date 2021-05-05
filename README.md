@@ -19,8 +19,8 @@
 
 # 参与人员
 
-![LoveMiku233](严/tx.png)
+<img src="严/tx.png" width="200" height="200" alt="头像"/><br/>
 
 <img src="薛/tx.png" width="200" height="200" alt="头像"/><br/>
 
-![YaYazzz](马/tx.png)
+<img src="马/tx.png" width="200" height="200" alt="头像"/><br/>
