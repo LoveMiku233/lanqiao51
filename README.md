@@ -29,9 +29,8 @@
 <p align="center">
 <img  src="薛/tx.png" width="150" height="150" alt="头像" /><br/>
  👨‍💻 piaochnagli 
-- 🎮 
-- 💻 
-- ⚡  
+- 🍓 strawberry
+- ⚡  lazy
 </p>
 
 <p align="center">
