@@ -6,10 +6,10 @@
 
 # 学习进度
 - [ ] 第一步配置
-    -[ ] keil5安装
-    -[ ] 驱动安装
+    - [ ] keil5安装
+    - [ ] 驱动安装
 - [ ] 基本模块
-    -[ ] LED
+    - [ ] LED
     - [ ] 数码管
     - [ ] 键盘
     - [ ] 定时器
@@ -21,6 +21,6 @@
 
 ![LoveMiku233](严/tx.png)
 
-![piaochangli](薛/tx.png)
+<img src="薛/tx.png" width="200" height="200" alt="头像"/><br/>
 
 ![YaYazzz](马/tx.png)
