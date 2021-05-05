@@ -20,10 +20,10 @@
 # 参与人员👨‍👦‍👦
 
 <img alt="头像" width="150" height="150" src="严/tx.png"/><br/>
-### 👨‍💻LoveMiku233
-- 🎮 CSGO / GTA5
-- 💻 Lenovo Y7000
-- ⚡ C++ / C  
+<h1> 👨‍💻 LoveMiku233 </h1>
+<h2> 🎮 CSGO / GTA5 <h2>
+<h2> 💻 Lenovo Y7000 </h2>
+<h2> ⚡ C++ / C </h2>  
 
 
 <img src="薛/tx.png" width="150" height="150" alt="头像"/><br/>
