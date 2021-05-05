@@ -19,7 +19,7 @@
 
 # 参与人员👨‍👦‍👦
 
-<img alt="头像" width="150" height="150" src="严/tx.png" float:left/><br/>
+<img alt="头像" width="150" height="150" src="严/tx.png" style="float:left"/><br/>
 ### 👨‍💻 LoveMiku233 
 - 🎮 CSGO / GTA5 
 - 💻 Lenovo Y7000 
