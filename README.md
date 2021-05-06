@@ -19,7 +19,7 @@
 
 # 参与人员👨‍👦‍👦
 <p align="center">
-<a href= ”严/”> <img alt="LoveMiku233" width="150" height="150" src="严/tx.png" /><br/></a>
+<a href= 严/> <img alt="LoveMiku233" width="150" height="150" src="严/tx.png" /><br/></a>
  👨‍💻 LoveMiku233 
 - 🎮 CSGO / GTA5 
 - 💻 Lenovo Y7000 
