@@ -27,12 +27,12 @@
 </p>
 
 <p align="center">
-<img  src="薛/tx.png" width="150" height="150" alt="头像" /><br/>
+<a href= 薛/><img  src="薛/tx.png" width="150" height="150" alt="头像" /><br/></a>
  👨‍💻 piaochnagli 
 - 🍓 strawberry
 - ⚡  lazy
 </p>
 
 <p align="center">
-<img src="马/tx.png" width="150" height="150" alt="头像" /><br/>
+<a href= 马/> <img src="马/tx.png" width="150" height="150" alt="头像" /><br/></a>
 </p>
