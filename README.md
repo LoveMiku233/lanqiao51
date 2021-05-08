@@ -5,9 +5,9 @@
 > * 练习Github代码储存库
 
 # 学习进度
-- [ ] 第一步配置
-    - [ ] keil5安装
-    - [ ] 驱动安装
+- [x] 第一步配置
+    - [x] keil5安装
+    - [x] 驱动安装
 - [ ] 基本模块
     - [ ] LED
     - [ ] 数码管
@@ -19,7 +19,7 @@
 
 # 参与人员👨‍👦‍👦
 <p align="center">
-<img alt="LoveMiku233" width="150" height="150" src="严/tx.png" /><br/>
+<a href= 严/> <img alt="LoveMiku233" width="150" height="150" src="严/tx.png" /><br/></a>
  👨‍💻 LoveMiku233 
 - 🎮 CSGO / GTA5 
 - 💻 Lenovo Y7000 
@@ -27,9 +27,12 @@
 </p>
 
 <p align="center">
-<img  src="薛/tx.png" width="150" height="150" alt="头像" /><br/>
+<a href= 薛/><img  src="薛/tx.png" width="150" height="150" alt="头像" /><br/></a>
+ 👨‍💻 piaochnagli 
+- 🍓 strawberry
+- ⚡  lazy
 </p>
 
 <p align="center">
-<img src="马/tx.png" width="150" height="150" alt="头像" /><br/>
+<a href= 马/> <img src="马/tx.png" width="150" height="150" alt="头像" /><br/></a>
 </p>
