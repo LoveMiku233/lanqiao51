@@ -52,7 +52,7 @@ void Delayms(u16 ms){ //定义延时函数,如果ms=1，则延迟1毫秒;ms=1000
 ```
 # 参与人员👨‍👦‍👦
 <p align="center">
-<a href= 严/> <img alt="LoveMiku233" width="150" height="150" src="严/tx.png" /><br/></a>
+<a href= LoveMiku233/> <img alt="LoveMiku233" width="150" height="150" src="LoveMiku233/tx.png" /><br/></a>
  👨‍💻 LoveMiku233 
 - 🎮 CSGO / GTA5 
 - 💻 Lenovo Y7000 
@@ -60,12 +60,12 @@ void Delayms(u16 ms){ //定义延时函数,如果ms=1，则延迟1毫秒;ms=1000
 </p>
 
 <p align="center">
-<a href= 薛/><img  src="薛/tx.png" width="150" height="150" alt="头像" /><br/></a>
+<a href= piaochnagli/><img  src="piaochnagli/tx.png" width="150" height="150" alt="头像" /><br/></a>
  👨‍💻 piaochnagli 
 - 🍓 strawberry
 - ⚡  lazy
 </p>
 
 <p align="center">
-<a href= 马/> <img src="马/tx.png" width="150" height="150" alt="头像" /><br/></a>
+<a href= YaYa/> <img src="YaYa/tx.png" width="150" height="150" alt="头像" /><br/></a>
 </p>
