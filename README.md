@@ -3,7 +3,7 @@
 
 > * 学习蓝桥杯单片机
 > * 练习Github代码储存库
-
+> * 练习Java
 # 学习进度💻
 - [x] 第一步配置
     - [x] keil5安装
@@ -68,4 +68,7 @@ void Delayms(u16 ms){ //定义延时函数,如果ms=1，则延迟1毫秒;ms=1000
 
 <p align="center">
 <a href= YaYa/> <img src="YaYa/tx.png" width="150" height="150" alt="头像" /><br/></a>
+ 👨‍💻 MCxiaochengcheng
+- 🍓 H!
+- ⚡ lululu
 </p>
