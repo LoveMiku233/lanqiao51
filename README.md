@@ -69,6 +69,8 @@ void Delayms(u16 ms){ //定义延时函数,如果ms=1，则延迟1毫秒;ms=1000
 <p align="center">
 <a href= YaYa/> <img src="YaYa/tx.png" width="150" height="150" alt="头像" /><br/></a>
  👨‍💻 MCxiaochengcheng
-- 🍓 H!
-- ⚡ lululu
+- 🎮CSGO/LOL
+- 💻神舟 战神
+- 🍓 VAN♂游戏
+- ⚡ 吃饭睡觉
 </p>
