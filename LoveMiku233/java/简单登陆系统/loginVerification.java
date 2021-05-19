@@ -1,26 +1,26 @@
 import java.util.Scanner;
 
 public class loginVerification {
-    String password;
-    String name;
+    private String password;
+    private String name;
     private int cis=0;
     Scanner out = new Scanner(System.in);
     private final String rootpassword="Miku";
     private void ChangePassword(){
-        System.out.println("please enter the original password:");
+        System.out.println("请输入原密码:");
         String password=out.next();
         if(password.equals(this.password)) {
-            System.out.println("please enter a new password:");
+            System.out.println("请输入新密码:");
             this.password=out.next();
         }else {
-            System.out.println("wrong password!");
+            System.out.println("错误密码!");
         }
     }
-    void firstLogin(){
-        System.out.println("welcome to the login system!");
-        System.out.print("please enter user name:");
+    private void firstLogin(){
+        System.out.println("欢迎来到登陆系统!");
+        System.out.print("注册用户名:");
         this.name=out.next();
-        System.out.print("please enter user password:");
+        System.out.print("注册密码:");
         this.password=out.next();
     }
     //保存到本地
@@ -28,10 +28,10 @@ public class loginVerification {
 
     }
     private void printinfo(){
-        System.out.println("Please enter the administrator password!");
+        System.out.println("请输入管理员密码!");
         String s1=out.next();
-        if(s1.equals(rootpassword))System.out.println("name:"+this.name+" password:"+this.password);
-        else System.out.println("wrong password!");
+        if(s1.equals(rootpassword))System.out.println("用户名:"+this.name+" 密码:"+this.password);
+        else System.out.println("错误密码");
     }
     public void ispd(){
         System.out.print("请输入被2整除的值:");
