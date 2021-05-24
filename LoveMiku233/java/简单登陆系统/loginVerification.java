@@ -1,10 +1,13 @@
-//切换用户登陆系统未实现,本地保存,异常捕获
+package 简单登录系统;//切换用户登陆系统未实现,本地保存,异常捕获
 
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.HashMap;  //hashmap
 public class loginVerification {
     private int userxh=0;//当前用户
     private int index=0; //当前数组索引位置
+    private int itemindex=0;//当前用户的物品数量
+    private item[][] items=new item[4][10];
     private String[] userArr=new String[4];  //创建用户数组
     HashMap<String,String> user=new HashMap<String,String>();  //创建hashmap，账号密码对应
     private int cis=0; //是否首次登陆(计划修改为检测是否有账号)
@@ -57,10 +60,61 @@ public class loginVerification {
         if(x%2==0)System.out.println("可以");
         else System.out.println("不可以");
     }
+    public void itemUser(){  //打印当前用户的物品
+        System.out.print("当前用户姓名: "+userArr[userxh]);
+        if(itemindex==0){
+            System.out.println(" 当前用户无物品!");
+        }else {
+            System.out.print(" 拥有物品:");
+            for (int i = 0; i < itemindex; i++) {
+                System.out.print(items[userxh][i].getName() + " ");
+            }
+        }
+    }
+    //目前有问题
+    public void quick_sort(item[] emps, int l, int r){
+        if(l>=r)return;
+        int x=emps[l].getPrice();int i=l-1;int j=r+1;
+        while(i<j){
+            do i++;while(emps[i].getPrice()<x);
+            do j--;while(emps[j].getPrice()>x);
+            if(i<j){
+                item temp=emps[i];
+                emps[i]=emps[j];
+                emps[j]=temp;
+            }
+        }
+        quick_sort(emps,l,j);
+        quick_sort(emps,j+1,r);
+    }
+    public void sortitem(){
+        if(itemindex!=0){
+            try {
+                this.quick_sort(items[userxh],0,itemindex);
+            }catch (NullPointerException e) {
+                System.out.println("异常: 排序错误");
+                return;
+            }
+        }
+    }
+    public void additem(){
+        if(itemindex<=8){
+            System.out.print("输入添加物品序号: ");
+            item temp=itemMenu();
+            if(temp.getName().equals("退出")){
+                System.out.println("退出添加!");
+            }else {
+                items[userxh][itemindex] =temp;
+                itemindex++;
+            }
+        }else{
+            System.out.println("物品栏已满!");
+        }
+    }
     public boolean menu(){  //用户菜单,以后可能会进行优化
         int xz;
         System.out.println("***************************");
-        if(cis==0) {  //判断是否第一次登陆,没啥用，加入本地储存后修改
+        if(cis==0) {  //判*断是否第一次登陆,没啥用，加入本地储存后修改
             firstLogin();
             cis++;
             System.out.println("欢迎"+userArr[userxh]+"进入系统!");
@@ -68,8 +122,10 @@ public class loginVerification {
         System.out.println("输入‘1’ : 添加账号");
         System.out.println("输入'2' : 修改密码");
         System.out.println("输入'3' : (管理员)查询相关信息");
-        System.out.println("输入'4' : 输入一个值是否能被2整除");
-        System.out.println("输入'5' : 退出");
+        System.out.println("输入'4' : 当前用户添加物品");
+        System.out.println("输入'5' : 打印当前用户物品栏");
+        System.out.println("输入'6' : 当前用户物品栏按价格排序");
+        System.out.println("输入'7' : 退出");
         System.out.println("***************************");
         System.out.print("输入选项:");
         xz=out.nextInt();
@@ -77,11 +133,34 @@ public class loginVerification {
             case 1: this.addUser();break;
             case 2: this.ChangePassword(); break;
             case 3: this.printinfo(); break;
-            case 4: this.ispd();break;
-            case 5:
-            default: if(xz==5)return false;
+            case 4: this.additem();break;
+            case 5: this.itemUser();break;
+            case 6: this.sortitem();break;
+            case 7:
+            default: if(xz==7)return false;
                     else{System.out.println("输入错误！");return true;}
         }
         return true;
+    }
+    public item itemMenu(){
+        int i;
+        System.out.println("物品添加系统");
+        System.out.println("输入‘1’ : 电脑");
+        System.out.println("输入'2' : 手机");
+        System.out.println("输入'3' : 手表");
+        System.out.println("输入'4' : 耳机");
+        System.out.println("输入'5' : 退出添加");
+        i=out.nextInt();
+
+        switch (i){
+            case 1: return new item(5000,"电脑");
+            case 2: return new item(2000,"手机");
+            case 3: return new item(100,"手表");
+            case 4: return new item(40,"耳机");
+            case 5: return new item(0,"退出");
+            default: if(i==5)new item(0,"退出");
+            else{System.out.println("输入错误！");return new item(0,"退出");}
+        }
+        return new item(0,"退出");
     }
 }

@@ -1,3 +1,5 @@
+package 简单登录系统;
+
 import java.util.Scanner;
 
 public class loginmain {
