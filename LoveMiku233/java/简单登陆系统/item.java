@@ -1,8 +1,8 @@
 package 简单登录系统;
 //物品
 public class item implements Comparable{
-    private int price=0;  //价格
-    private String name="无";  //物品名称
+    private int price;  //价格
+    private String name;  //物品名称
 
     public item(int price, String name) {
         this.price = price;

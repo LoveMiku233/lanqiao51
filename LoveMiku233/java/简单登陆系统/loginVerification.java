@@ -7,8 +7,21 @@ public class loginVerification {
     private int userxh=0;//当前用户
     private int index=0; //当前数组索引位置
     private int itemindex=0;//当前用户的物品数量
+    private int[] money=new int[4];
     private item[][] items=new item[4][10];
     private String[] userArr=new String[4];  //创建用户数组
+    private shop s1=new shop();
+    public loginVerification() {
+        System.out.println("初始化...");
+
+        for(int i=0;i<4;i++){
+            money[i]=1000;
+            for(int j=0;j<10;j++){
+                this.items[i][j]=new item();
+            }
+        }
+    }
+
     HashMap<String,String> user=new HashMap<String,String>();  //创建hashmap，账号密码对应
     private int cis=0; //是否首次登陆(计划修改为检测是否有账号)
     Scanner out = new Scanner(System.in);
@@ -44,6 +57,18 @@ public class loginVerification {
     void saveName(){
 
     }
+    private void selectSort(){
+        for(int i=0;i<this.itemindex;i++){
+            int minIndex=i;
+            for(int j=i;j<this.itemindex;j++) {
+                if (this.items[userxh][minIndex].getPrice() > this.items[userxh][j].getPrice())
+                    minIndex=j;
+            }
+            item temp=this.items[userxh][minIndex];
+            this.items[userxh][minIndex]=this.items[userxh][i];
+            this.items[userxh][i]=temp;
+        }
+    }
     private void printinfo(){  //管理员打印相关信息
         System.out.println("请输入管理员密码!");
         String s1=out.next();
@@ -67,34 +92,39 @@ public class loginVerification {
         }else {
             System.out.print(" 拥有物品:");
             for (int i = 0; i < itemindex; i++) {
+                if(!items[userxh][i].getName().equals("NULL"))
                 System.out.print(items[userxh][i].getName() + " ");
             }
         }
     }
-    //目前有问题
-    public void quick_sort(item[] emps, int l, int r){
-        if(l>=r)return;
-        int x=emps[l].getPrice();int i=l-1;int j=r+1;
-        while(i<j){
-            do i++;while(emps[i].getPrice()<x);
-            do j--;while(emps[j].getPrice()>x);
-            if(i<j){
-                item temp=emps[i];
-                emps[i]=emps[j];
-                emps[j]=temp;
-            }
-        }
-        quick_sort(emps,l,j);
-        quick_sort(emps,j+1,r);
-    }
     public void sortitem(){
         if(itemindex!=0){
             try {
-                this.quick_sort(items[userxh],0,itemindex);
+                this.selectSort();
             }catch (NullPointerException e) {
                 System.out.println("异常: 排序错误");
                 return;
             }
+        }
+    }
+    //还没写完
+    public void buy(int xz){
+        switch (xz){
+            case 1:additemshop(s1.shopitem[xz-1]);
+            case 2:additemshop(s1.shopitem[xz-1]);
+            case 3:additemshop(s1.shopitem[xz-1]);
+            case 4:additemshop(s1.shopitem[xz-1]);
+            case 5:additemshop(s1.shopitem[xz-1]);
+            case 6:additemshop(s1.shopitem[xz-1]);
+            default:
+        }
+    }
+    public void additemshop(item t1){
+        if(itemindex<=8){
+            items[userxh][itemindex] =t1;
+            itemindex++;
+        }else{
+            System.out.println("物品栏已满!");
         }
     }
     public void additem(){
@@ -125,7 +155,8 @@ public class loginVerification {
         System.out.println("输入'4' : 当前用户添加物品");
         System.out.println("输入'5' : 打印当前用户物品栏");
         System.out.println("输入'6' : 当前用户物品栏按价格排序");
-        System.out.println("输入'7' : 退出");
+        System.out.println("输入'7' : 购买商品");
+        System.out.println("输入'8' : 退出");
         System.out.println("***************************");
         System.out.print("输入选项:");
         xz=out.nextInt();
@@ -136,8 +167,8 @@ public class loginVerification {
             case 4: this.additem();break;
             case 5: this.itemUser();break;
             case 6: this.sortitem();break;
-            case 7:
-            default: if(xz==7)return false;
+            case 7:this.s1.menu();break;
+            default: if(xz==8)return false;
                     else{System.out.println("输入错误！");return true;}
         }
         return true;
