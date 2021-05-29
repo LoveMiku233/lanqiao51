@@ -22,9 +22,9 @@ public class loginVerification {
         }
     }
 
-    HashMap<String,String> user=new HashMap<String,String>();  //创建hashmap，账号密码对应
+    private HashMap<String,String> user=new HashMap<String,String>();  //创建hashmap，账号密码对应
     private int cis=0; //是否首次登陆(计划修改为检测是否有账号)
-    Scanner out = new Scanner(System.in);
+    private Scanner out = new Scanner(System.in);
     private void ChangePassword(){  //当前登陆用户密码修改函数
         System.out.println("请输入原密码:");
         String password=out.next();
@@ -75,7 +75,7 @@ public class loginVerification {
         if(s1.equals("123")){ //判断是否为管理员密码
             System.out.println("目前有"+user.size()+"个用户");  //打印用户个数
             for(int i=0;i<user.size();i++)  //利用用户数组中的key打印hashmap中的值
-            System.out.println("用户名:"+userArr[i]+" 密码:"+user.get(userArr[i]));
+            System.out.println("用户名:"+userArr[i]+" 密码:"+user.get(userArr[i])+" 余额:"+money[i]);
         } //错误则输出
         else System.out.println("错误密码");
     }
@@ -103,20 +103,21 @@ public class loginVerification {
                 this.selectSort();
             }catch (NullPointerException e) {
                 System.out.println("异常: 排序错误");
-                return;
             }
         }
     }
     //还没写完
     public void buy(int xz){
-        switch (xz){
-            case 1:additemshop(s1.shopitem[xz-1]);
-            case 2:additemshop(s1.shopitem[xz-1]);
-            case 3:additemshop(s1.shopitem[xz-1]);
-            case 4:additemshop(s1.shopitem[xz-1]);
-            case 5:additemshop(s1.shopitem[xz-1]);
-            case 6:additemshop(s1.shopitem[xz-1]);
-            default:
+        if(xz!=-1){
+            if(money[userxh]>=s1.shopitem[xz-1].getPrice()) {
+                additemshop(s1.shopitem[xz - 1]);
+                money[userxh]-=s1.shopitem[xz-1].getPrice();
+                System.out.println("购买成功!");
+            }else{
+                System.out.println("余额不足!");
+            }
+        }else{
+            System.out.println("选择错误!");
         }
     }
     public void additemshop(item t1){
@@ -149,6 +150,7 @@ public class loginVerification {
             cis++;
             System.out.println("欢迎"+userArr[userxh]+"进入系统!");
         }
+        System.out.println("用户名: "+userArr[userxh]+" 余额:"+money[userxh]);
         System.out.println("输入‘1’ : 添加账号");
         System.out.println("输入'2' : 修改密码");
         System.out.println("输入'3' : (管理员)查询相关信息");
@@ -167,7 +169,7 @@ public class loginVerification {
             case 4: this.additem();break;
             case 5: this.itemUser();break;
             case 6: this.sortitem();break;
-            case 7:this.s1.menu();break;
+            case 7:this.buy(s1.menu());break;
             default: if(xz==8)return false;
                     else{System.out.println("输入错误！");return true;}
         }
@@ -189,8 +191,7 @@ public class loginVerification {
             case 3: return new item(100,"手表");
             case 4: return new item(40,"耳机");
             case 5: return new item(0,"退出");
-            default: if(i==5)new item(0,"退出");
-            else{System.out.println("输入错误！");return new item(0,"退出");}
+            default: new item(0,"退出");
         }
         return new item(0,"退出");
     }

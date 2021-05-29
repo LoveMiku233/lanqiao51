@@ -3,7 +3,6 @@ package 简单登录系统;
 public class item implements Comparable{
     private int price;  //价格
     private String name;  //物品名称
-
     public item(int price, String name) {
         this.price = price;
         this.name = name;
@@ -12,7 +11,6 @@ public class item implements Comparable{
         this.price = 0;
         this.name = "NULL";
     }
-
     public int compareTo(Object o){
         item i=(item)o;
         if(i.getPrice()>this.getPrice())return -1;

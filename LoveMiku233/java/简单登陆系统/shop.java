@@ -14,7 +14,6 @@ public class shop {
         shopitem[4]=new item(99999999,"飞机芜湖");
         shopitem[5]=new item(30,"csgo");
     }
-
     public int menu(){
         if(ye==0){
             for(int i=0;i<6;i++){
