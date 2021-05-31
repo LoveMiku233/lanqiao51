@@ -1,3 +1,10 @@
+/*
+ * 文件名：loginmain.java
+ * 作者：LoveMiku233〈1657041544@qq.com〉
+ * 描述：登陆菜单系统简单实现
+ * 创建日期：2021-5-19
+ * 修改时间：2021-5-19 简单登陆系统主函数
+ */
 package 简单登录系统;
 
 import java.util.Scanner;

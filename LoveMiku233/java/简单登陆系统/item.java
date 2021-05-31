@@ -1,3 +1,11 @@
+/*
+ * 文件名：item.java
+ * 作者：LoveMiku233〈1657041544@qq.com〉
+ * 描述：物品系统简单实现
+ * 创建日期：2021-5-26
+ * 修改时间：2021-5-26 物品系统简单实现
+ */
+
 package 简单登录系统;
 //物品
 public class item implements Comparable{

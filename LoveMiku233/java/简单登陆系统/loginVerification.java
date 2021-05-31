@@ -1,3 +1,15 @@
+/*
+ * 文件名：loginVerification.java
+ * 作者：LoveMiku233〈1657041544@qq.com〉
+ * 描述：登陆菜单系统简单实现
+ * 创建日期：2021-5-19
+ * 修改时间：2021-5-19 ????
+ *         2021-5-21 ????
+ *         2021-5-24 ????
+ *         2021-5-26 整合简单商城系统
+ */
+
+
 package 简单登录系统;//切换用户登陆系统未实现,本地保存,异常捕获
 
 import java.util.Arrays;
@@ -7,13 +19,12 @@ public class loginVerification {
     private int userxh=0;//当前用户
     private int index=0; //当前数组索引位置
     private int itemindex=0;//当前用户的物品数量
-    private int[] money=new int[4];
+    private int[] money=new int[4];//用户余额
     private item[][] items=new item[4][10];
     private String[] userArr=new String[4];  //创建用户数组
     private shop s1=new shop();
     public loginVerification() {
         System.out.println("初始化...");
-
         for(int i=0;i<4;i++){
             money[i]=1000;
             for(int j=0;j<10;j++){
