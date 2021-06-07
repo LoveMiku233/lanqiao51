@@ -7,15 +7,24 @@
  */
 package 简单登录系统;
 
-import java.util.Scanner;
+import com.alibaba.fastjson.JSON;
 
+import java.io.File;
+import java.util.Scanner;
 public class loginmain {
     public static void main(String[] args){
         Scanner out = new Scanner(System.in);
+        saveAccount s1=new saveAccount();
         loginVerification l1=new loginVerification();
+        File f=new File("D:/1.json");
+        if(f.exists()) {
+            String s2 = s1.test();
+            l1 = JSON.parseObject(s2, loginVerification.class);
+        }
         while(l1.menu()){  //菜单显示
             System.out.println("输入任意继续!");
             out.nextLine();
         }
+        s1.test1(l1);
     }
 }

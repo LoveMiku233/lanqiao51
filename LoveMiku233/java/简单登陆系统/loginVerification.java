@@ -12,6 +12,8 @@
 
 package 简单登录系统;//切换用户登陆系统未实现,本地保存,异常捕获
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.HashMap;  //hashmap
@@ -23,6 +25,27 @@ public class loginVerification {
     private item[][] items=new item[4][10];
     private String[] userArr=new String[4];  //创建用户数组
     private shop s1=new shop();
+    @JSONField(name="itemindex")
+    public int getItemindex() {
+        return itemindex;
+    }
+    @JSONField(name="Money")
+    public int[] getMoney() {
+        return money;
+    }
+    @JSONField(name="items")
+    public item[][] getItems() {
+        return items;
+    }
+    @JSONField(name="userArr")
+    public String[] getUserArr() {
+        return userArr;
+    }
+    @JSONField(name="Map")
+    public HashMap<String, String> getUser() {
+        return user;
+    }
+
     public loginVerification() {
         System.out.println("初始化...");
         for(int i=0;i<4;i++){
@@ -32,7 +55,14 @@ public class loginVerification {
             }
         }
     }
-
+    public loginVerification(loginVerification a1){
+        this.money=a1.money;
+        this.items=a1.items;
+        this.itemindex= a1.itemindex;
+        this.userArr=a1.userArr;
+        this.user=a1.user;
+        zhangh();
+    }
     private HashMap<String,String> user=new HashMap<String,String>();  //创建hashmap，账号密码对应
     private int cis=0; //是否首次登陆(计划修改为检测是否有账号)
     private Scanner out = new Scanner(System.in);
@@ -45,6 +75,19 @@ public class loginVerification {
             user.replace(userArr[userxh],password); //修改hashmap key对应的值
         }else { //密码错误执行
             System.out.println("错误密码!");
+        }
+    }
+    private void zhangh(){
+        System.out.println("1."+userArr[0]);
+        System.out.println("2."+userArr[1]);
+        System.out.println("3."+userArr[2]);
+        System.out.println("4."+userArr[3]);
+        int a=out.nextInt();
+        if(a<=4&&a>=1){
+            if(a==1)userxh=0;
+            if(a==2)userxh=1;
+            if(a==3)userxh=2;
+            if(a==4)userxh=3;
         }
     }
     private void firstLogin(){  //首次登陆调用，以后会修改，修改为检测是否有账号，没有则创建
@@ -64,9 +107,9 @@ public class loginVerification {
             System.out.println("用户已满");
         }
     }
-    //保存到本地  未实现
-    void saveName(){
 
+    void saveName(){
+        //todo 保存到本地功能
     }
     private void selectSort(){
         for(int i=0;i<this.itemindex;i++){
