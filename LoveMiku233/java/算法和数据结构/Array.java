@@ -1,13 +1,7 @@
-/*
-* 文件名：Array.java
-* 作者：LoveMiku233〈1657041544@qq.com〉
-* 描述：int数组类
-* 创建日期：2021-5-31
-* 修改时间：2021-5-31 简单实现Array类
-*/
-public class Array {
+public class Array{
     private int data[];
     private int size;
+    //todo 构造函数
     public Array(int capacity){
         data=new int[capacity];
         size=0;
@@ -63,5 +57,14 @@ public class Array {
             }
             size--;
         }
+    }
+    public int getlength(){
+        return data.length;
+    }
+    public int getIndexdata(int a){
+        if(a<size){
+            return data[a];
+        }
+        return -1;
     }
 }
