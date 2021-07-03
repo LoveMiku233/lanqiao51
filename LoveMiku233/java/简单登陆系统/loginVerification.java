@@ -14,6 +14,7 @@ package 简单登录系统;//切换用户登陆系统未实现,本地保存,异�
 
 import com.alibaba.fastjson.annotation.JSONField;
 
+import javax.sound.midi.Soundbank;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.HashMap;  //hashmap
@@ -212,7 +213,8 @@ public class loginVerification {
         System.out.println("输入'5' : 打印当前用户物品栏");
         System.out.println("输入'6' : 当前用户物品栏按价格排序");
         System.out.println("输入'7' : 购买商品");
-        System.out.println("输入'8' : 退出");
+        System.out.println("输入'8' : 出售商品");
+        System.out.println("输入'9' : 退出");
         System.out.println("***************************");
         System.out.print("输入选项:");
         xz=out.nextInt();
@@ -224,7 +226,8 @@ public class loginVerification {
             case 5: this.itemUser();break;
             case 6: this.sortitem();break;
             case 7:this.buy(s1.menu());break;
-            default: if(xz==8)return false;
+            case 8:this.itemchus();break;
+            default: if(xz==9)return false;
                     else{System.out.println("输入错误！");return true;}
         }
         return true;
@@ -249,4 +252,28 @@ public class loginVerification {
         }
         return new item(0,"退出");
     }
+    //物品出售函数
+    public void itemchus(){
+        if(itemindex==0) System.out.println("当前无物品出售");
+        else{
+            int a;
+            System.out.println("请选择需要出售的物品序号!");
+            for(int i=0;i<itemindex;i++){
+                System.out.println("输入"+"'"+(i+1)+"'"+"："+items[userxh][i].getName());
+            }
+            System.out.print("请输入选择：");
+            a=out.nextInt();
+            if(a<=itemindex&&a>0) {
+                for (int i = a; i < itemindex; i++) {
+                    this.items[userxh][i] = this.items[userxh][i + 1];
+                }
+                itemindex--;
+                money[userxh]+=items[userxh][a-1].getPrice()*0.5;
+            }else{
+                System.out.println("错误索引");
+                return;
+            }
+        }
+    }
 }
+
