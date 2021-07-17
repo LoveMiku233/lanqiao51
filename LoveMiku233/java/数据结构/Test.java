@@ -2,7 +2,6 @@ package 数据结构;
 
 /**
  * The type Test.
- * 测试类
  */
 public class Test {
     /**
@@ -11,22 +10,18 @@ public class Test {
      * @param args the args
      */
     public static void main(String[] args){
-        Linkedlist<Integer> L1=new Linkedlist<>();
-        L1.add(2,1);
-        L1.add(0,231);
-        L1.add(2,23);
-        L1.add(1,123);
-        L1.add(1,1213);
-        L1.add(3,1123);
-        L1.add(1,1111);
-        L1.printListedList();
-        L1.addFirst(1111);
-        L1.printListedList();
-        L1.set(0,100);
-        System.out.println(L1.get(0));
-        System.out.println(L1.contains(1123));
-        L1.printListedList();
-        L1.reMove(4);
-        L1.printListedList();
+        LinkedListQueue<Integer> Q1=new LinkedListQueue<>();
+        Q1.enqueue(1);
+        Q1.enqueue(2);
+        Q1.enqueue(3);
+        Q1.enqueue(4);
+        Q1.enqueue(5);
+        System.out.println("Queue : Front");
+        System.out.println(Q1.toString());
+        Q1.dequeue();
+        Q1.dequeue();
+        Q1.dequeue();
+        Q1.dequeue();
+        System.out.println(Q1.toString());
     }
 }

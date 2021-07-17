@@ -1,42 +1,39 @@
 package 数据结构;
+/**
+ * @author LoveMiku
+ * @version v1.0
+ * @文件名称:
+ * @描述: [类型描述]
+ * @创建时间: 2021/7/16
+ * @update [序号][日期YYYY-MM-DD] [更改人姓名][变更描述]
+ */
 
 /**
- * The type Equeue.
- * 队列实现
+ * The type Loop queue.
  */
-public class Equeue {
+public class loopQueue {
     private int arr[];
     private int size;
     private int length=10;
     private int count=0;
 
     /**
-     * Instantiates a new Equeue.
+     * Instantiates a new Loop queue.
      *
      * @param size1 the size 1
      */
-    public Equeue(int size1){
+    public loopQueue(int size1){
         length=size1;
         arr=new int[length];
         this.size=0;
     }
 
     /**
-     * Instantiates a new Equeue.
+     * Instantiates a new Loop queue.
      */
-    public Equeue(){
+    public loopQueue(){
         arr=new int[length];
         size=0;
-    }
-
-    /**
-     * Push 1.
-     *
-     * @param a the a
-     */
-    public void push1(int a){
-        arr[size]=a;
-        size++;
     }
 
     /**
@@ -67,24 +64,5 @@ public class Equeue {
             System.out.println("队为空");
             return -1;
         }
-    }
-
-    /**
-     * Pop 1 int.
-     *
-     * @return the int
-     */
-    public int pop1(){
-        int temp;
-        if(size!=0){
-            temp=arr[0];
-            for(int i=0;i<size;i++){
-                arr[i]=arr[i+1];
-            }
-            size--;
-            return temp;
-        }
-        System.out.println("ERR!");
-        return -1;
     }
 }

@@ -1,8 +1,15 @@
 package 数据结构;
+/**
+ * @author LoveMiku
+ * @version v1.0
+ * @文件名称:
+ * @描述: [类型描述]
+ * @创建时间: 2021/7/16
+ * @update [序号][日期YYYY-MM-DD] [更改人姓名][变更描述]
+ */
 
 /**
  * The type Linkedlist.
- * 链表实现
  *
  * @param <E> the type parameter
  */
@@ -26,15 +33,6 @@ public class Linkedlist<E> {
         public Node(E a,Node n){
             this.data=a;
             this.next=n;
-        }
-
-        /**
-         * Instantiates a new Node.
-         *
-         * @param a the a
-         */
-        public Node(E a){
-            this(a,null);
         }
 
         /**
@@ -173,7 +171,7 @@ public class Linkedlist<E> {
         Node temp = dummyNode.next;
         StringBuilder s1=new StringBuilder();
         while(temp!=null){
-            s1.append(temp.data+"->");
+            s1.append(temp.data).append("->");
             temp=temp.next;
         }
         s1.append("null");
@@ -194,7 +192,7 @@ public class Linkedlist<E> {
         }
         Node temp1=temp.next;
         temp.next= temp1.next;
-        temp1=null;
+        temp1.next=null;
         size--;
         return temp.data;
     }
