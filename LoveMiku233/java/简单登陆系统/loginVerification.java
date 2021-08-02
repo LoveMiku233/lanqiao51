@@ -16,6 +16,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 import java.util.HashMap;  //hashmap
+
+/**
+ * The type Login verification.
+ */
 public class loginVerification {
     private int userxh=0;//当前用户
     private int index=0; //当前数组索引位置
@@ -25,10 +29,14 @@ public class loginVerification {
     private String[] userArr=new String[4];  //创建用户数组
     private shop s1=new shop();
     private StringBuilder Stringrz=new StringBuilder();
-    private SimpleDateFormat date=new SimpleDateFormat("yyyy年MM月dd日 HH时mm分ss秒");
-    private HashMap<String,String> user=new HashMap<String,String>();  //创建hashmap，账号密码对应
+    private final SimpleDateFormat date=new SimpleDateFormat("yyyy年MM月dd日 HH时mm分ss秒");
+    private HashMap<String,String> user= new HashMap<>();  //创建hashmap，账号密码对应
     private int cis=0; //是否首次登陆(计划修改为检测是否有账号)
-    private Scanner out = new Scanner(System.in);
+    private final Scanner out = new Scanner(System.in);
+
+    /**
+     * Instantiates a new Login verification.
+     */
     public loginVerification() {
         System.out.println("初始化...");
         for(int i=0;i<4;i++){
@@ -37,8 +45,14 @@ public class loginVerification {
                 this.items[i][j]=new item();
             }
         }
-        Stringrz.append(time()+" 系统初始化\n");
+        Stringrz.append(time()).append(" 系统初始化\n");
     }
+
+    /**
+     * Instantiates a new Login verification.
+     *
+     * @param a1 the a 1
+     */
     public loginVerification(loginVerification a1){
         this.money=a1.money;
         this.items=a1.items;
@@ -74,8 +88,7 @@ public class loginVerification {
     }
     private String time(){
         Date d1=new Date();
-        String str=date.format(d1);
-        return str;
+        return date.format(d1);
     }
     private void firstLogin(){  //首次登陆调用，以后会修改，修改为检测是否有账号，没有则创建
         System.out.println("欢迎来到登陆系统!");
@@ -95,6 +108,9 @@ public class loginVerification {
         }
     }
 
+    /**
+     * Save name.
+     */
     void saveName(){
         //todo 保存到本地功能
     }
@@ -114,7 +130,7 @@ public class loginVerification {
         System.out.println("请输入管理员密码!");
         String s1=out.next();
         if(s1.equals("123")){ //判断是否为管理员密码
-            Stringrz.append(time()+" 进入管理信息系统\n");
+            Stringrz.append(time()).append(" 进入管理信息系统\n");
             System.out.println("目前有"+user.size()+"个用户");  //打印用户个数
             for(int i=0;i<user.size();i++)  //利用用户数组中的key打印hashmap中的值
             System.out.println("用户名:"+userArr[i]+" 密码:"+user.get(userArr[i])+" 余额:"+money[i]);
@@ -124,12 +140,20 @@ public class loginVerification {
         } //错误则输出
         else System.out.println("错误密码");
     }
+
+    /**
+     * Ispd.
+     */
     public void ispd(){ //没啥可说的
         System.out.print("请输入被2整除的值:");
         int x=out.nextInt();
         if(x%2==0)System.out.println("可以");
         else System.out.println("不可以");
     }
+
+    /**
+     * Item user.
+     */
     public void itemUser(){  //打印当前用户的物品
         System.out.print("当前用户姓名: "+userArr[userxh]);
         if(itemindex==0){
@@ -142,6 +166,10 @@ public class loginVerification {
             }
         }
     }
+
+    /**
+     * Sortitem.
+     */
     public void sortitem(){
         if(itemindex!=0){
             try {
@@ -151,14 +179,20 @@ public class loginVerification {
             }
         }
     }
-    //还没写完
+
+    /**
+     * Buy.
+     *
+     * @param xz the xz
+     */
+//还没写完
     public void buy(int xz){
         if(xz!=-1){
             if(money[userxh]>=s1.shopitem[xz-1].getPrice()) {
                 additemshop(s1.shopitem[xz - 1]);
                 money[userxh]-=s1.shopitem[xz-1].getPrice();
                 System.out.println("购买成功!");
-                Stringrz.append(time()+" 购买"+s1.shopitem[xz-1].getName()+"成功\n");
+                Stringrz.append(time()).append(" 购买").append(s1.shopitem[xz - 1].getName()).append("成功\n");
             }else{
                 System.out.println("余额不足!");
             }
@@ -166,6 +200,12 @@ public class loginVerification {
             System.out.println("选择错误!");
         }
     }
+
+    /**
+     * Additemshop.
+     *
+     * @param t1 the t 1
+     */
     public void additemshop(item t1){
         if(itemindex<=8){
             items[userxh][itemindex] =t1;
@@ -174,6 +214,10 @@ public class loginVerification {
             System.out.println("物品栏已满!");
         }
     }
+
+    /**
+     * Additem.
+     */
     public void additem(){
         if(itemindex<=8){
             System.out.print("输入添加物品序号: ");
@@ -188,6 +232,12 @@ public class loginVerification {
             System.out.println("物品栏已满!");
         }
     }
+
+    /**
+     * Menu boolean.
+     *
+     * @return the boolean
+     */
     public boolean menu(){  //用户菜单,以后可能会进行优化
         int xz;
         System.out.println("***************************");
@@ -223,6 +273,12 @@ public class loginVerification {
         }
         return true;
     }
+
+    /**
+     * Item menu item.
+     *
+     * @return the item
+     */
     public item itemMenu(){
         int i;
         System.out.println("物品添加系统");
@@ -243,7 +299,11 @@ public class loginVerification {
         }
         return new item(0,"退出");
     }
-    //物品出售函数
+
+    /**
+     * Itemchus.
+     */
+//物品出售函数
     public void itemchus(){
         if(itemindex==0) System.out.println("当前无物品出售");
         else{
@@ -255,15 +315,12 @@ public class loginVerification {
             System.out.print("请输入选择：");
             a=out.nextInt();
             if(a<=itemindex&&a>0) {
-                for (int i = a; i < itemindex; i++) {
-                    items[userxh][i] = items[userxh][i + 1];
-                }
+                System.arraycopy(items[userxh], a + 1, items[userxh], a, itemindex - a);
                 itemindex--;
                 money[userxh]+=items[userxh][a-1].getPrice()*0.5;
-                Stringrz.append(time()+" 出售"+items[userxh][a-1].getName()+"成功\n");
+                Stringrz.append(time()).append(" 出售").append(items[userxh][a - 1].getName()).append("成功\n");
             }else{
                 System.out.println("错误索引");
-                return;
             }
         }
     }
