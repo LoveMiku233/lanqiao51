@@ -6,6 +6,7 @@
  * 修改时间：2021-5-19 简单登陆系统主函数
  */
 package 简单登录系统;
+import java.io.IOException;
 import java.util.Scanner;
 public class loginmain {
     public static void main(String[] args){

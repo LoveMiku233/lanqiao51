@@ -12,10 +12,8 @@
 
 package 简单登录系统;//切换用户登陆系统未实现,本地保存,异常捕获
 
-import com.alibaba.fastjson.annotation.JSONField;
-
-import javax.sound.midi.Soundbank;
-import java.util.Arrays;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 import java.util.HashMap;  //hashmap
 public class loginVerification {
@@ -26,27 +24,11 @@ public class loginVerification {
     private item[][] items=new item[4][10];
     private String[] userArr=new String[4];  //创建用户数组
     private shop s1=new shop();
-    @JSONField(name="itemindex")
-    public int getItemindex() {
-        return itemindex;
-    }
-    @JSONField(name="Money")
-    public int[] getMoney() {
-        return money;
-    }
-    @JSONField(name="items")
-    public item[][] getItems() {
-        return items;
-    }
-    @JSONField(name="userArr")
-    public String[] getUserArr() {
-        return userArr;
-    }
-    @JSONField(name="Map")
-    public HashMap<String, String> getUser() {
-        return user;
-    }
-
+    private StringBuilder Stringrz=new StringBuilder();
+    private SimpleDateFormat date=new SimpleDateFormat("yyyy年MM月dd日 HH时mm分ss秒");
+    private HashMap<String,String> user=new HashMap<String,String>();  //创建hashmap，账号密码对应
+    private int cis=0; //是否首次登陆(计划修改为检测是否有账号)
+    private Scanner out = new Scanner(System.in);
     public loginVerification() {
         System.out.println("初始化...");
         for(int i=0;i<4;i++){
@@ -55,6 +37,7 @@ public class loginVerification {
                 this.items[i][j]=new item();
             }
         }
+        Stringrz.append(time()+" 系统初始化\n");
     }
     public loginVerification(loginVerification a1){
         this.money=a1.money;
@@ -64,9 +47,7 @@ public class loginVerification {
         this.user=a1.user;
         zhangh();
     }
-    private HashMap<String,String> user=new HashMap<String,String>();  //创建hashmap，账号密码对应
-    private int cis=0; //是否首次登陆(计划修改为检测是否有账号)
-    private Scanner out = new Scanner(System.in);
+
     private void ChangePassword(){  //当前登陆用户密码修改函数
         System.out.println("请输入原密码:");
         String password=out.next();
@@ -90,6 +71,11 @@ public class loginVerification {
             if(a==3)userxh=2;
             if(a==4)userxh=3;
         }
+    }
+    private String time(){
+        Date d1=new Date();
+        String str=date.format(d1);
+        return str;
     }
     private void firstLogin(){  //首次登陆调用，以后会修改，修改为检测是否有账号，没有则创建
         System.out.println("欢迎来到登陆系统!");
@@ -128,9 +114,13 @@ public class loginVerification {
         System.out.println("请输入管理员密码!");
         String s1=out.next();
         if(s1.equals("123")){ //判断是否为管理员密码
+            Stringrz.append(time()+" 进入管理信息系统\n");
             System.out.println("目前有"+user.size()+"个用户");  //打印用户个数
             for(int i=0;i<user.size();i++)  //利用用户数组中的key打印hashmap中的值
             System.out.println("用户名:"+userArr[i]+" 密码:"+user.get(userArr[i])+" 余额:"+money[i]);
+            System.out.println("******************日志******************");
+            System.out.println(Stringrz.toString());
+            System.out.println("**************************************");
         } //错误则输出
         else System.out.println("错误密码");
     }
@@ -168,6 +158,7 @@ public class loginVerification {
                 additemshop(s1.shopitem[xz - 1]);
                 money[userxh]-=s1.shopitem[xz-1].getPrice();
                 System.out.println("购买成功!");
+                Stringrz.append(time()+" 购买"+s1.shopitem[xz-1].getName()+"成功\n");
             }else{
                 System.out.println("余额不足!");
             }
@@ -200,7 +191,7 @@ public class loginVerification {
     public boolean menu(){  //用户菜单,以后可能会进行优化
         int xz;
         System.out.println("***************************");
-        if(cis==0) {  //判*断是否第一次登陆,没啥用，加入本地储存后修改
+        if(cis==0) {  //判断是否第一次登陆,没啥用，加入本地储存后修改
             firstLogin();
             cis++;
             System.out.println("欢迎"+userArr[userxh]+"进入系统!");
@@ -265,10 +256,11 @@ public class loginVerification {
             a=out.nextInt();
             if(a<=itemindex&&a>0) {
                 for (int i = a; i < itemindex; i++) {
-                    this.items[userxh][i] = this.items[userxh][i + 1];
+                    items[userxh][i] = items[userxh][i + 1];
                 }
                 itemindex--;
                 money[userxh]+=items[userxh][a-1].getPrice()*0.5;
+                Stringrz.append(time()+" 出售"+items[userxh][a-1].getName()+"成功\n");
             }else{
                 System.out.println("错误索引");
                 return;
