@@ -2,8 +2,9 @@
  *创建时间: 2021/8/29
  *文件名称: main.c
  *文件描述: 主函数,简单实现非OS事件处理
- *实现功能: 事件驱动LED1 每隔4s切换显示 
-            软件延迟可能没有那么准确
+ *实现功能: 8/29 事件驱动LED1 每隔4s切换显示 
+                 软件延迟可能没有那么准确
+            8/30 修改为按键控制LED1
 */
 #include <ioCC2530.h>
 #include "event.h"
@@ -18,18 +19,22 @@ void Init();
 void LED();
 void eventProc();  
 void addevent();
-void Delays(){
+void Delayms(u8 ms){
   int i,j;
-  for(i=0;i<2000;i++)
+  for(i=0;i<ms;i++)
     for(j=535;j>0;j--);
 }
 void main(){
   Init();
   while(1){
-    addevent();
-    Delays();
+     if(P0_1==0){
+      Delayms(5);
+      if(P0_1==0){
+        addevent();
+      }
+      while(!P0_1);
+    }
     eventProc();
-    Delays();
   }
 }
 void Init(){
