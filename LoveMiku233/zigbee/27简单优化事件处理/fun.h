@@ -1,6 +1,8 @@
 #ifndef __FUN__
 #define __FUN__
 void Init();
+void Init_Timer();
+void set32M();
 void LedCtl(u8,u16);
 void KeyEventHandle(u16);
 void UsartEventHandle(u16);

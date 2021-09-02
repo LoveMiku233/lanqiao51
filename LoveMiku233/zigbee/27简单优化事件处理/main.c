@@ -1,8 +1,10 @@
 #include <ioCC2530.h>
 #include "event.h"
 #include "fun.h"
+#include "tick.h"
 
 #define _USART_
+#define _TICK_
 
 #define A0(n) P0SEL&=n
 #define A1(n) P1SEL&=n
@@ -11,11 +13,14 @@
 
 void main(){
 #ifdef _USART_
-  CLKCONCMD&=~0x40;
-  while(CLKCONSTA&0x40);
-  CLKCONCMD&=~0x47;
+  set32M();
+#endif
+
+#ifdef _TICK_
+  Init_Timer();
 #endif
   Init();
+  addTimerEvent(1,KEY2,10); //测试 20=2S
   while(1){
     //测试
     if(P0_1==0){
@@ -29,9 +34,20 @@ void main(){
   }
 }
 
+void Init_Timer()
+{
+  T1CC0L = 0xd4; 
+  T1CC0H = 0x30; 
+  T1CCTL0 |= 0x04; 
+  T1IE = 1;
+  T1OVFIM = 1; 
+  EA = 1;
+  T1CTL = 0x0e;
+}
+
 void Init(){
-  A1(0xfe);
-  B1(0x01);
+  P1SEL&=~0x13;
+  P1DIR|=0x13;
   A0(0xfd);
   B0(0xfd);
   P0INP&=0xfd;
@@ -45,10 +61,16 @@ void Init(){
   URX0IF=0;
   URX0IE=1;
   IEN0 |= 0x84;
-  EA=1;
+  EA=1; 
+  addHandle(UsartEventHandle);
   #endif
   addHandle(KeyEventHandle);
-  addHandle(UsartEventHandle);
+}
+
+void set32M(){
+  CLKCONCMD&=~0x40;
+  while(CLKCONSTA&0x40);
+  CLKCONCMD&=~0x47;
 }
 
 void addHandle(void (*Fun)(u16)){
@@ -63,17 +85,17 @@ void eventProc(){
   if(eventHead!=eventTail||eventFull){
     eventTemp=Event_[eventHead];
     Event_[eventHead++]=0;
+    if(eventHead>=MAX_EVENT)
+      eventHead=0;
+    for(i=0;i<HandleTail;i++)
+      (*Handle[i].handle)(eventTemp);
   }
-  if(eventHead>=MAX_EVENT)
-    eventHead=0;
-  for(i=0;i<HandleTail;i++)
-    (*Handle[i].handle)(eventTemp);
 }
 
 void KeyEventHandle(u16 event){ 
   switch(event){
     case KEY1: addEvent(USART0T);break;
-    case KEY2: LedCtl(1,5000);break;
+    case KEY2: LedCtl(2,5000);break;
   }
 }
 
@@ -94,14 +116,57 @@ void addEvent(u16 event){
     }
     if(can){
       Event_[eventTail++]=event;
-      Event_[eventTail]=0; //需要维护
       if(eventTail>=MAX_EVENT)eventTail=0;
       eventFull=(eventTail==eventHead)?1:0;
     }
   }
 }
 //系统Tick实现
+#pragma vector = T1_VECTOR
+__interrupt void Timer1_Sevice() //100ms定时
+{
+  T1STAT =0x00;
+  TickHandle(); 
+}
 
+void TickHandle(){
+  u8 i;
+  for(i=0;i<TimerTail;i++){
+    TimerEvent[i].timer--;
+    if(TimerEvent[i].timer==0){
+      addEvent(TimerEvent[i].event);
+      if(!TimerEvent[i].type){
+        delTickEvent(TimerEvent[i].event);
+      }else{
+        TimerEvent[i].timer=TimerEvent[i].timerbackup;
+      }
+    }
+  }
+}
+
+void addTimerEvent(u8 type,u16 event,u16 timer){
+  if(!TimerEventFull){
+    TimerEvent[TimerTail].type=type;
+    TimerEvent[TimerTail].event=event;
+    TimerEvent[TimerTail].timer=timer;
+    TimerEvent[TimerTail].timerbackup=timer;
+    TimerTail++;
+  }
+  if(TimerTail>=MAX_TIMER)TimerEventFull=1;
+}
+
+void delTickEvent(u16 _event){
+  u8 i,j;
+  for(i=0;i<TimerTail;i++){
+    if(TimerEvent[i].event==_event){
+      for(j=i;j<TimerTail;j++){
+        TimerEvent[j]=TimerEvent[j+1];
+      }
+      TimerTail--;
+      TimerEventFull=0;
+    }
+  }
+}
 
 //
 void Delayms(u16 ms){
@@ -113,6 +178,7 @@ void Delayms(u16 ms){
 void LedCtl(u8 LED,u16 time){ //使用软件延迟 time暂不使用
   switch(LED){
     case 1: P1_0=!P1_0;break;
+    case 2: P1_1=!P1_1;break;
     //...
   }
 }
