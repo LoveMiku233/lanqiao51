@@ -12,14 +12,15 @@ void init();
 void delayms(uint8 ms);
 void keyscan();
 void led();
+void initTimer();
 
 uint8 cis=0;
 
 void main(){
   init();
+  initTimer();
   while(1){
     keyscan();
-    led();
   }
 }
 
@@ -33,6 +34,14 @@ void init(){
   P0DIR|=0x80;
 }
 
+void initTimer(){
+  T1CC0L=0xd4;
+  T1CC0H=0x30;
+  T1CCTL0|=0x04;
+  EA=1;T1IE=1;
+  T1CTL|=0x0E; 
+}
+
 void led(){
   switch(cis){
     case 0: LED1=0;LED2=0;LED3=0;LED4=0;P0_7=0; break;
@@ -41,6 +50,12 @@ void led(){
     case 3:LED1=1;LED2=1;LED3=0;LED4=0; break; 
     case 4:LED1=1;LED2=0;LED3=1;LED4=1; P0_7=1;break; 
   }
+}
+
+#pragma vector=T1_VECTOR
+__interrupt void T1LED(){
+  T1STAT=0x00;
+  led();
 }
 
 void delayms(uint8 ms){
