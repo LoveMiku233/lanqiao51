@@ -5,17 +5,25 @@ typedef unsigned int uint16;
 
 #define LED1 P1_0
 #define LED2 P1_1
+#define KEYMAXTIME 50
 
 uint8 flag=0;
 uint8 max=0;
 uint16 count=0;
 uint16 sw2=0; 
+uint16 keytime=0;
+uint8 keystate=0;
 
 void init();
 void key();
-void delayms(uint16 us);
+void delay(uint16 us);
 void inittimer();
 void led(uint16 cis);
+uint8 keyread();
+void Delayms(uint16 ms);
+void mod1();
+void mod2();
+
 
 void main(){
   init();
@@ -25,8 +33,6 @@ void main(){
     key();
   }
 }
-
-void Delayms(uint16 ms);
 
 void init(){
   P0SEL&=~0x0E;
@@ -41,55 +47,75 @@ void init(){
 #pragma vector=T1_VECTOR
 __interrupt void T1(){
   T1STAT=0x00;
+  keytime++;
   if(flag==1){
-    count++;
-    if(count%100==0){
-      count=0;
-      if(LED1==1){
-        LED1=0;
-        LED2=1;
-      }else{
-        LED1=1;
-        LED2=0;
-      }
-    }
+    mod1();
   }else if(flag==2){
-    sw2++;
-    if(max==0){
-      led(count++);
-      if(count>=100){
-        max=1;
-      }
+    mod2();
+  }
+}
+
+void mod1(){
+  count++;
+  if(count%100==0){
+    count=0;
+    if(LED1==1){
+      LED1=0;
+      LED2=1;
     }else{
-      led(count--);
-      if(count<=0){
-        max=0;
-      }
-    }
-    if(sw2%200==0){
-      sw2=0;
-      LED2=!LED2;
+      LED1=1;
+      LED2=0;
     }
   }
 }
 
-void key(){
-  if(P0_1==0){
-    Delayms(8);
-    if(P0_1==0){
-      count=0;
-      flag=1;
-      while(!P0_1);
+void mod2(){
+  sw2++;
+  if(max==0){
+    led(count++);
+    if(count>=100){
+      max=1;
+    }
+  }else{
+    led(count--);
+    if(count<=0){
+      max=0;
     }
   }
-   if(P2_0==0){
-    Delayms(8);
-    if(P2_0==0){
-      flag=2;
-      count=0;
-      LED1=1;LED2=1;
-      while(!P2_0);
+  if(sw2%200==0){
+    sw2=0;
+    LED2=!LED2;
+  }
+}
+
+uint8 keyread(){
+    uint8 statetemp=0;
+    if(P0_1==0){
+      Delayms(8);
+      if(P0_1==0){        
+        keytime=0;
+        keystate++; 
+        while(!P0_1);
+
+      }
     }
+    if(keytime>50){
+      keytime=0;
+      statetemp=keystate;
+      keystate=0;
+    }
+    return statetemp;
+}
+
+void key(){
+  uint8 a=keyread();
+  if(a==1){
+    count=0;
+    flag=1;
+  }else if(a>=2){
+    count=0;
+    max=0;
+    flag=2;
   }
 }
 
@@ -102,11 +128,11 @@ void Delayms(uint16 ms){
 
 void led(uint16 cis){
   LED1=0;
-  delayms(cis);
+  delay(cis*10);
   LED1=1;
 }
 
-void delayms(uint16 us){
+void delay(uint16 us){
   while(us--);
 }
 
