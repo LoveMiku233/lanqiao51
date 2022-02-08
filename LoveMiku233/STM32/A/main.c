@@ -13,7 +13,7 @@
 #define DATA 0x0800F000
 
 uint16_t flashfirst=1;
-uint16_t tenMSecClick=0;																		// 10ºÁÃë¼ÆÊ±Æ÷
+uint16_t tenMSecClick=0;																		// 10æ¯«ç§’è®¡æ—¶å™¨
 uint32_t flashsave=0; //n
 
 uint8_t led2flag=0;
@@ -21,40 +21,40 @@ uint8_t led2flag=0;
 uint8_t X[64];
 uint8_t Y[64];
 /**********************************************************************************************
-*º¯Êı£ºvoid Init( void )
-*¹¦ÄÜ£ºÆ½Ì¨³õÊ¼»¯
-*ÊäÈë£ºÎŞ
-*Êä³ö£ºÎŞ
-*ÌØÊâËµÃ÷£ºÎŞ
+*å‡½æ•°ï¼švoid Init( void )
+*åŠŸèƒ½ï¼šå¹³å°åˆå§‹åŒ–
+*è¾“å…¥ï¼šæ— 
+*è¾“å‡ºï¼šæ— 
+*ç‰¹æ®Šè¯´æ˜ï¼šæ— 
 **********************************************************************************************/
 void Init() {
-    // ¿ª·¢°åÆ½Ì¨³õÊ¼»¯
+    // å¼€å‘æ¿å¹³å°åˆå§‹åŒ–
     BoardInitMcu();
     BoardInitPeriph();
 
-    keys_init();//°´¼ü³õÊ¼»¯
+    keys_init();//æŒ‰é”®åˆå§‹åŒ–
 
     setTimer2Callback(Time2Handler);
-    Tim2McuInit(1);//¶¨Ê±Æ÷³õÊ¼»¯£¬ÉèÖÃ¶¨Ê±ÖĞ¶Ï1msÖĞ¶ÏÒ»´Î
+    Tim2McuInit(1);//å®šæ—¶å™¨åˆå§‹åŒ–ï¼Œè®¾ç½®å®šæ—¶ä¸­æ–­1msä¸­æ–­ä¸€æ¬¡
 }
 
 /**********************************************************************************************
-*º¯Êı£ºvoid KeyDownHandler( void )
-*¹¦ÄÜ£º°´Å¥ÊÂ¼ş¼àÌı
-*ÊäÈë£ºÎŞ
-*Êä³ö£ºÎŞ
-*ÌØÊâËµÃ÷£ºÎŞ
+*å‡½æ•°ï¼švoid KeyDownHandler( void )
+*åŠŸèƒ½ï¼šæŒ‰é’®äº‹ä»¶ç›‘å¬
+*è¾“å…¥ï¼šæ— 
+*è¾“å‡ºï¼šæ— 
+*ç‰¹æ®Šè¯´æ˜ï¼šæ— 
 **********************************************************************************************/
 void KeyDownHandler(void) {
 	
 }
 
 /**********************************************************************************************
-*º¯Êı£ºvoid handlerPre10Ms( void )
-*¹¦ÄÜ£º10ºÁÃëÑ­»·
-*ÊäÈë£ºÎŞ
-*Êä³ö£ºÎŞ
-*ÌØÊâËµÃ÷£ºÑ­»·´¦Àí×ÜÊ±³¤300ms
+*å‡½æ•°ï¼švoid handlerPre10Ms( void )
+*åŠŸèƒ½ï¼š10æ¯«ç§’å¾ªç¯
+*è¾“å…¥ï¼šæ— 
+*è¾“å‡ºï¼šæ— 
+*ç‰¹æ®Šè¯´æ˜ï¼šå¾ªç¯å¤„ç†æ€»æ—¶é•¿300ms
 **********************************************************************************************/
 void handlerPre10Ms(void) {
     for (int delay = 0; delay < 30; delay++) {
@@ -103,7 +103,7 @@ void isFlash(){
 		flashsave=temp;
 	}
 }
-
+//æ­¤å¤„åº”ç”¨çŠ¶æ€æœºå®ç°
 void keyscan(){
 	if(HAL_GPIO_ReadPin(KEY2_GPIO, KEY2_GPIO_PIN)==0){ //key2
 		flashsave--;
@@ -117,7 +117,7 @@ void keyscan(){
 		oledjsqdiplay();
 		while(HAL_GPIO_ReadPin(KEY3_GPIO, KEY3_GPIO_PIN)==0);
 	}
-	if(HAL_GPIO_ReadPin(KEY4_GPIO, KEY4_GPIO_PIN)==0){ //key4 ¼ÓÉÏled2
+	if(HAL_GPIO_ReadPin(KEY4_GPIO, KEY4_GPIO_PIN)==0){ //key4 åŠ ä¸Šled2
 		STMFLASH_Write(DATA,&flashsave,1);
 		GpioWrite( &Led2, 0 );
 		led2flag=1;
@@ -132,7 +132,7 @@ int main( void )
 {
     Init();
 		OLED_Init();
-		isFlash(); //ÅĞ¶ÏÊÇ·ñÎªµÚÒ»´Î½øÈë
+		isFlash(); //åˆ¤æ–­æ˜¯å¦ä¸ºç¬¬ä¸€æ¬¡è¿›å…¥
 		oleddisplay();
 		oledjsqdiplay();
     while( 1 )
