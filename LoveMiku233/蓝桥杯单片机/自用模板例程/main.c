@@ -1,6 +1,7 @@
 #include <STC15F2K60S2.h>
 #include "ds1302.h"
 #include "onewire.h"
+#include "iic.h"
 /////////////////函数///////////////////////////
 #define hc138(x) P2&=0x1f,P2|=x<<5; //控制
 void time_flash(); //时间刷新显示
@@ -10,6 +11,8 @@ void Timer2Init(void); //定时器2初始化
 void Timer0Init(void); //定时器0初始化
 void delayms(unsigned int ms); //软件延迟函数
 void init(); //初始化
+void adc_get(); //获取光敏电阻的电压 
+void adc_out(); //D/A输出电压
 void display(unsigned char pos,dat); //数码管指定显示
 void key4(); //独立键盘
 /////////////////变量//////////////////////////////
@@ -40,6 +43,17 @@ void time_flash(){
 		smgdat[b-2]=smgdat[b-2]==20?21:20;
 	}
 }	
+
+void adc_get(){
+	unsigned int temp=read_adc(1)*1.96;
+	smgdat[7]=temp%10;
+	smgdat[6]=temp/10%10;
+	smgdat[5]=temp/100+10;
+}
+
+void adc_out(unsigned int d){
+	adc(d);
+}
 
 void display_c(){
 	unsigned char i;
@@ -87,6 +101,8 @@ void init(){
 	hc138(5);P0=0x00;
 }
 
+unsigned int dy=0;
+
 void key4(){
 	if(P30==0){
 		delayms(10);
@@ -96,6 +112,22 @@ void key4(){
 			while(!P30);
 		}
 	}
+	if(P31==0){
+		delayms(10);
+		if(P31==0){
+			mod=2;
+			display_c();
+			while(!P31);
+		}
+	}
+	
+	if(P32==0){
+		delayms(10);
+		if(P32==0){
+			adc_out(500);
+			while(!P32);
+		}
+	}
 }
 
 void display(unsigned char pos,dat){
@@ -103,7 +135,7 @@ void display(unsigned char pos,dat){
 	hc138(7);P0=dat;
 }
 
-void T2 interrupt 12{
+void T2() interrupt 12{
 	hc138(6);P0=0x00;
 	display(POS,SMG[smgdat[POS]]);
 	if(++POS==8)POS=0;
@@ -117,10 +149,16 @@ void T0() interrupt 1{
 			cnt=0;
 			time_flash();
 		}
-	}else{
+	}else if(mod==1){
 		if(cnt>=500){
 			cnt=0;
 			temp_flash();
+			adc_out(125/1.961);
+		}
+	}else if(mod==2){
+		if(cnt>=500){
+			cnt=0;
+			adc_get();
 		}
 	}
 }
