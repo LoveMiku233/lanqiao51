@@ -15,12 +15,17 @@ void adc_get(); //获取光敏电阻的电压
 void adc_out(); //D/A输出电压
 void display(unsigned char pos,dat); //数码管指定显示
 void key4(); //独立键盘
+void key16();
 /////////////////变量//////////////////////////////
-unsigned char POS=0;
-unsigned char smgdat[8]={21,21,21,21,21,21,21,21}; 
-unsigned char code SMG[]={0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,0x80,0x90,0x40,0x79,0x24,0x30,0x19,0x12,0x02,0x78,0x00,0x10,0xbf,0xff};
-extern unsigned char time[];
-unsigned char mod=0;
+unsigned char POS=0; //游标
+unsigned char smgdat[8]={21,21,21,21,21,21,21,21}; //数码管显示控制
+unsigned char code SMG[]={0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,0x80,0x90,0x40,0x79,0x24,0x30,0x19,0x12,0x02,0x78,0x00,0x10,0xbf,0xff}; //数码管码值
+unsigned int modTime[5]={200,500,500,200,0}; //每个模式中断时间x2ms
+extern unsigned char time[]; //ds1302
+unsigned char mod=0; //模式控制
+unsigned char cmd=0; //测试矩阵键盘
+
+
 	
 void main(){
 	init();
@@ -29,7 +34,11 @@ void main(){
 	Ds1302_Init();
 	rd_temperature();
 	while(1){
-		key4();
+			if(mod==3){
+				key16();
+			}else{
+				key4();
+			}
 	}
 }	
 	
@@ -105,7 +114,7 @@ unsigned int dy=0;
 
 void key4(){
 	if(P30==0){
-		delayms(10);
+		delayms(5);
 		if(P30==0){
 			mod=mod==0?1:0;
 			display_c();
@@ -113,7 +122,7 @@ void key4(){
 		}
 	}
 	if(P31==0){
-		delayms(10);
+		delayms(5);
 		if(P31==0){
 			mod=2;
 			display_c();
@@ -122,10 +131,95 @@ void key4(){
 	}
 	
 	if(P32==0){
-		delayms(10);
+		delayms(5);
 		if(P32==0){
 			adc_out(500);
 			while(!P32);
+		}
+	}
+	
+	if(P33==0){
+		delayms(5);
+		if(P33==0){
+			mod=3;
+			display_c();
+			while(!P33);
+		}
+	}
+}
+
+void key16(){
+	unsigned char temp;
+	P3=0x7f;
+	P44=0;P42=1;
+	temp=P3;
+	temp&=0x0f;
+	if(temp!=0x0f){
+		delayms(5);
+		temp=P3;
+		temp&=0x0f;
+		if(temp!=0x0f){
+			temp=P3;
+			switch(temp){
+				case 0x7E: mod=0;break; //S7
+				case 0x7D: cmd=6;break; //S6
+				case 0x7B: cmd=5;break; //S5
+				case 0x77: cmd=4;break; //S4
+			}
+		}
+	}
+	P3=0xff;
+	P44=1;P42=0;
+	temp=P3;
+	temp&=0x0f;
+	if(temp!=0x0f){
+		delayms(5);
+		temp=P3;
+		temp&=0x0f;
+		if(temp!=0x0f){
+			switch(temp){
+				temp=P3;
+				case 0xFE: cmd=11;break; //S11
+				case 0xFD: cmd=10;break; //S10
+				case 0xFB: cmd=9; break; //S9
+				case 0xF7: cmd=8; break; //S8
+			}
+		}
+	}
+	P3=0xdf;
+	P44=1;P42=1;
+	temp=P3;
+	temp&=0x0f;
+	if(temp!=0x0f){
+		delayms(5);
+		temp=P3;
+		temp&=0x0f;
+		if(temp!=0x0f){
+			temp=P3;
+			switch(temp){
+				case 0xDE: cmd=15;break; //S15
+				case 0xDD: cmd=14;break; //S14
+				case 0xDB: cmd=13;break; //S13
+				case 0xD7: cmd=12;break; //S12
+			}
+		}
+	}
+	P3=0xef;
+	P44=1;P42=1;
+	temp=P3;
+	temp&=0x0f;
+	if(temp!=0x0f){
+		delayms(5);
+		temp=P3;
+		temp&=0x0f;
+		if(temp!=0x0f){
+			temp=P3;
+			switch(temp){
+				case 0xEE: cmd=19;break; //S19
+				case 0xED: cmd=18;break; //S18
+				case 0xEB: cmd=17;break; //S17
+				case 0xE7: cmd=16;break; //S16
+			}
 		}
 	}
 }
@@ -144,21 +238,18 @@ void T2() interrupt 12{
 void T0() interrupt 1{
 	static unsigned int cnt=0;
 	cnt++;
-	if(mod==0){
-		if(cnt>=200){
-			cnt=0;
+	if(cnt>=modTime[mod]){
+		cnt=0;
+		if(mod==0){
 			time_flash();
-		}
-	}else if(mod==1){
-		if(cnt>=500){
-			cnt=0;
+		}else if(mod==1){
 			temp_flash();
 			adc_out(125/1.961);
-		}
-	}else if(mod==2){
-		if(cnt>=500){
-			cnt=0;
+		}else if(mod==2){
 			adc_get();
+		}else if(mod==3){
+			smgdat[7]=cmd%10;
+			smgdat[6]=cmd/10;
 		}
 	}
 }
